@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Pokemon
 
+@admin.register(Pokemon)
+class PokemonAdmin(admin.ModelAdmin):
+    list_display = ('name', 'type', 'height', 'weight')
 # Register your models here.
