@@ -1,32 +1,38 @@
-{% extends 'base.html' %}
-{% block title %}
-  Página Inicial
-{% endblock title %}
+{% extends 'base.html' %} {% block title %} Página Inicial {% endblock title %}
 {% block content %}
-  <h3 class="p-2">Pokemons</h3>
-  <div class="row">
-    {% for pokemon in pokemons %}
-    <div class="col-sm-4">
-        <br>
-      <div class="card" style="width: 100%;">
-  <img src="{{pokemon.picture.url}}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{ pokemon|capfirst }}</h5>
-    <p class="card-text">Altura: {{ pokemon.height }} m</p>
-    <p class="card-text">Peso: {{ pokemon.weight }} kg</p>
-    <a href="{% url 'pokemon' id=pokemon.id %}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+<h3 class="p-2">Pokemons</h3>
+<a href="{% url "pokedex:add_pokemon" %}">Añadir Pokemon</a>
+<div class="row">
+  {% for pokemon in pokemons %}
+  <div class="col-sm-4">
+    <br />
+    <div class="card" style="width: 100%">
+      <img src="{{pokemon.picture.url}}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ pokemon|capfirst }}</h5>
+        <p class="card-text">Altura: {{ pokemon.height }} m</p>
+        <p class="card-text">Peso: {{ pokemon.weight }} kg</p>
+        <a href="{% url 'pokedex:pokemon' id=pokemon.id %}" class="btn btn-primary"
+          ><i class="fa-solid fa-eye"></i
+        ></a>
+        <a href="{% url 'pokedex:edit_pokemon' pokemon_id=pokemon.id %}" class="btn btn-primary"
+          ><i class="fa-solid fa-pencil"></i
+        ></a>
+        <a href="{% url 'pokedex:delete_pokemon' pokemon_id=pokemon.id %}" class="btn btn-danger"
+          ><i class="fa-solid fa-trash"></i
+        ></a>
+      </div>
+    </div>
   </div>
-    </div>
-    </div>
+  {% endfor %}
+</div>
 
-      
-    {% endfor %}
-  <h3 class="p-2">Trainers</h3>
-  <ul class="list-group">
-    {% for trainer in trainers %}
-      <li class="list-group-item">
-        <a href="{% url 'trainer' id=trainer.id %}">{{ trainer|capfirst }}</a>
-      </li>
-    {% endfor %}
-  </ul>
+<h3 class="p-2">Trainers</h3>
+<ul class="list-group">
+  {% for trainer in trainers %}
+  <li class="list-group-item">
+    <a href="{% url 'pokedex:trainer' id=trainer.id %}">{{ trainer|capfirst }}</a>
+  </li>
+  {% endfor %}
+</ul>
 {% endblock content %}
